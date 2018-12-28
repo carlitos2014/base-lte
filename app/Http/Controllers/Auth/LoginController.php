@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\App\MenuController;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
@@ -20,7 +19,19 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        attemptLogin as attemptLoginAtAuthenticatesUsers;
+    }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
+    {
+        return view('adminlte::auth.login');
+    }
 
     /**
      * Where to redirect users after login.
@@ -36,15 +47,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        //Lista de acciones que no requieren autenticación
-        $arrActionsLogin = [
-            'logout',
-            'login',
-            'getLogout',
-            'showLoginForm',
-        ];
-        //Requiere que el usuario inicie sesión, excepto en la vista logout.
-        $this->middleware('auth', [ 'except' => $arrActionsLogin ]);
+        $this->middleware('guest', ['except' => 'logout']);
     }
 
     /**
@@ -54,7 +57,7 @@ class LoginController extends Controller
      */
     public function username()
     {
-        return 'username';
+        return config('auth.providers.users.field','email');
     }
 
     /**

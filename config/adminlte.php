@@ -29,7 +29,7 @@ return [
     | See https://laracasts.com/series/whip-monstrous-code-into-shape/episodes/19
     */
 
-    'guestuser' => true,
+    'guestuser' => false,
 
     /*
     |--------------------------------------------------------------------------
