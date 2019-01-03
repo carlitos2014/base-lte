@@ -23,3 +23,16 @@ Route::group(['middleware' => 'auth'], function () {
     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
     #adminlte_routes
 });
+
+
+Route::group(['middleware' => 'guest'], function () {
+
+	Route::group(['prefix'=>'auditorias', 'as'=>'auditorias.'], function() {
+
+		Route::resource('prueba', 'PruebaController'); //CRUD
+		Route::get('/programacion','AuditoriaController@programacion')->name('programacion');
+		Route::post('/programacion/pdf','AuditoriaController@programacionBuildPdf')->name('programacion.buildPdf');
+
+	});
+
+});
