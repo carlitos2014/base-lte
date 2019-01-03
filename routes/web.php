@@ -30,9 +30,19 @@ Route::group(['middleware' => 'guest'], function () {
 	Route::group(['prefix'=>'auditorias', 'as'=>'auditorias.'], function() {
 
 		Route::resource('prueba', 'PruebaController'); //CRUD
-		Route::get('/programacion','AuditoriaController@programacion')->name('programacion');
-		Route::post('/programacion/pdf','AuditoriaController@programacionBuildPdf')->name('programacion.buildPdf');
+		//Route::get('/programacion','AuditoriaController@programacion')->name('programacion');
+		//Route::post('/programacion/pdf','AuditoriaController@programacionBuildPdf')->name('programacion.buildPdf');
 
 	});
+
+
+	Route::group(['prefix'=>'config', 'as'=>'config.'], function() {
+
+		Route::resource('sedes', 'SedeController'); //CRUD
+
+	});
+
+
+  
 
 });
