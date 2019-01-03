@@ -1,6 +1,6 @@
 <?php
 
-namespace SGH\Console\Commands;
+namespace App\Console\Commands;
 
 use DB;
 use Illuminate\Console\Command;
@@ -46,6 +46,7 @@ class DropTables extends Command
                 case 'mysql':
                 $colname = 'Tables_in_' . env('DB_DATABASE');
                 $tables = DB::select('SHOW TABLES');
+
                 foreach($tables as $table) {
                     $droplist[] = $table->$colname;
                 }
@@ -59,8 +60,8 @@ class DropTables extends Command
                 $this->comment(PHP_EOL."Todas las tablas fueron borradas en ".env('DB_DATABASE').PHP_EOL);
                 break;
             case 'pgsql':
-                DB::statement('DROP SCHEMA '.env('DB_SCHEMA').' CASCADE');
-                DB::statement('CREATE SCHEMA '.env('DB_SCHEMA'));
+                DB::statement('DROP SCHEMA "'.env('DB_SCHEMA').'" CASCADE');
+                DB::statement('CREATE SCHEMA "'.env('DB_SCHEMA').'"');
                 DB::commit();
                 $this->comment(PHP_EOL."Todas las tablas fueron borradas en ".env('DB_DATABASE').'.'.env('DB_SCHEMA').PHP_EOL);
                 break;
